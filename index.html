@@ -12,7 +12,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             background: white;
             border-radius: 8px;
@@ -71,9 +71,33 @@
 
             <label for="store">Cửa hàng:</label>
             <select id="store" required>
-                <option value="Cửa hàng A">Cửa hàng A</option>
-                <option value="Cửa hàng B">Cửa hàng B</option>
-                <option value="Cửa hàng C">Cửa hàng C</option>
+                <option value="">-- Chọn cửa hàng --</option>
+                <!-- Danh sách cửa hàng -->
+                <option value="40 LVH">40 LVH</option>
+                <option value="91 LVH">91 LVH</option>
+                <option value="313 LVH">313 LVH</option>
+                <option value="23 MĐC">23 MĐC</option>
+                <option value="276 TĐN">276 TĐN</option>
+                <option value="607 TĐN">607 TĐN</option>
+                <option value="1066 TĐN">1066 TĐN</option>
+                <option value="433 TTĐ">433 TTĐ</option>
+                <option value="01 LLQ">01 LLQ</option>
+                <option value="44 NTT">44 NTT</option>
+                <option value="676 HBT">676 HBT</option>
+                <option value="245 OIĐ">245 OIĐ</option>
+                <option value="155 LĐH">155 LĐH</option>
+                <option value="16 PĐL">16 PĐL</option>
+                <option value="110 DSTK">110 DSTK</option>
+                <option value="05 NTN">05 NTN</option>
+                <option value="85 NC">85 NC</option>
+                <option value="119 HHT">119 HHT</option>
+                <option value="141 QT">141 QT</option>
+                <option value="59 VĐ">59 VĐ</option>
+                <option value="605 NQ">605 NQ</option>
+                <option value="47 NVT">47 NVT</option>
+                <option value="207 CTVT">207 CTVT</option>
+                <option value="118 NHS">118 NHS</option>
+                <option value="61 CD">61 CD</option>
             </select>
 
             <table>
@@ -85,60 +109,36 @@
                     </tr>
                 </thead>
                 <tbody id="productTable">
-                    <tr>
-                        <td>1</td>
-                        <td>Sản phẩm A</td>
-                        <td><input type="number" min="0" placeholder="0"></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Sản phẩm B</td>
-                        <td><input type="number" min="0" placeholder="0"></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td><input type="number" min="0" placeholder="0"></td>
-                    </tr>
+                    <!-- Danh sách sản phẩm -->
+                    <script>
+                        const products = [
+                            "Xúc xích", "Chà bông kẹp", "Pate trứng cút", "SW mặn", "Dăm bông trứng", 
+                            "Chà bông thịt", "Bông lúa", "Xúc xích Đức", "PIZZA", "Chiên xù", 
+                            "Pho mai que", "Bánh cua", "Hotdog dâu", "Bánh gấu", "Mehico", 
+                            "Dứa đường", "Phi mè", "Dừa lưới", "Donut đường", "BÁnh ong", 
+                            "Quế", "Chiên đường", "Tròn dừa", "Paparoty", "Hambogo", 
+                            "Donus", "Donut hạnh nhân", "Donut mini", "Sừng trâu", "Sừng trâu TM", 
+                            "Nho dừa", "Nho dài", "Hồ lô", "Pho mai bắp", "Ốc sô", 
+                            "Cuộn nho", "Hạnh nhân", "Pateso", "Xếp thịt", "Xoắn đường", 
+                            "Bánh mặn", "Bánh ngọt", "Sừng trâu SÔ", "Nhân sữa cacao", "Đx sầu riêng", 
+                            "Mè đen", "Hambogo mini", "Hộp DONUS", "Nho dài"
+                        ];
+
+                        products.forEach((product, index) => {
+                            document.write(`
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${product}</td>
+                                    <td><input type="number" min="0" placeholder="0"></td>
+                                </tr>
+                            `);
+                        });
+                    </script>
                 </tbody>
             </table>
 
             <button type="submit" class="submit-btn">Lưu Dữ Liệu</button>
         </form>
     </div>
-
-    <script>
-        document.getElementById('inputForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn không cho tải lại trang
-
-            // Thu thập dữ liệu từ form
-            const date = document.getElementById('date').value;
-            const store = document.getElementById('store').value;
-            const rows = document.querySelectorAll('#productTable tr');
-            const data = [];
-
-            rows.forEach((row, index) => {
-                const product = row.children[1].textContent;
-                const quantity = row.children[2].querySelector('input').value || 0;
-                data.push({ product, quantity });
-            });
-
-            // Gửi dữ liệu đến server hoặc Google Apps Script
-            fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
-                method: 'POST',
-                body: JSON.stringify({ date, store, data }),
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(result => {
-                alert('Dữ liệu đã được lưu thành công!');
-                console.log(result);
-            })
-            .catch(error => {
-                alert('Có lỗi xảy ra. Vui lòng thử lại!');
-                console.error(error);
-            });
-        });
-    </script>
 </body>
 </html>
